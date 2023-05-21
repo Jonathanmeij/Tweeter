@@ -1,0 +1,11 @@
+@attribute [Microsoft.AspNetCore.Authorization.AllowAnonymous]
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+}

@@ -1,8 +1,10 @@
 @page "/login"
+@attribute [Microsoft.AspNetCore.Authorization.AllowAnonymous]
 @using Tweeter.Shared.Models
 @inject HttpClient Http
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject ILocalStorageService LocalStorageService
+@inject NavigationManager NavigationManager
 
 <h3>Login</h3>
 
@@ -25,5 +27,6 @@
         
         await LocalStorageService.SetItemAsync("token", token);
         await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        NavigationManager.NavigateTo("/");
     }
 }

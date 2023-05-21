@@ -1,0 +1,14 @@
+@inject ILocalStorageService LocalStorageService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<button @onclick="HandleLogout">Logout</button>
+
+@code {
+
+    private void HandleLogout()
+    {
+        LocalStorageService.RemoveItemAsync("token");
+        AuthenticationStateProvider.GetAuthenticationStateAsync();
+    }
+
+}
