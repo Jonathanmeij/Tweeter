@@ -1,0 +1,29 @@
+@page "/login"
+@using Tweeter.Shared.Models
+@inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ILocalStorageService LocalStorageService
+
+<h3>Login</h3>
+
+<EditForm Model="user" OnSubmit="HandleLogin">
+    <label for="email">Email</label>
+    <InputText id="email" @bind-Value="user.Email" />
+    <label for="password">Password</label>
+    <InputText type="password" id="password" @bind-Value="user.Password" />
+    <button type="submit">Login</button>
+</EditForm>
+
+@code {
+    LoginRequest user = new LoginRequest();
+    
+    async Task HandleLogin()
+    {
+        var result = await Http.PostAsJsonAsync("/api/auth/login", user);
+        var response = await result.Content.ReadFromJsonAsync<LoginResponse>();
+        var token = response.Token;
+        
+        await LocalStorageService.SetItemAsync("token", token);
+        await AuthenticationStateProvider.GetAuthenticationStateAsync();
+    }
+}

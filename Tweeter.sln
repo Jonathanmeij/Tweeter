@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tweeter.Server", "Tweeter\Server\Tweeter.Server.csproj", "{73932850-C1DF-431D-8568-828216C3E4CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tweeter.Client", "Tweeter\Client\Tweeter.Client.csproj", "{62D93AF2-A962-4613-AE6C-3AB3414AD606}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tweeter.Shared", "Tweeter\Shared\Tweeter.Shared.csproj", "{72B9B01B-8AD1-418D-9FCA-64CCE3B4F20A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73932850-C1DF-431D-8568-828216C3E4CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73932850-C1DF-431D-8568-828216C3E4CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73932850-C1DF-431D-8568-828216C3E4CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73932850-C1DF-431D-8568-828216C3E4CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62D93AF2-A962-4613-AE6C-3AB3414AD606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62D93AF2-A962-4613-AE6C-3AB3414AD606}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62D93AF2-A962-4613-AE6C-3AB3414AD606}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62D93AF2-A962-4613-AE6C-3AB3414AD606}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B9B01B-8AD1-418D-9FCA-64CCE3B4F20A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B9B01B-8AD1-418D-9FCA-64CCE3B4F20A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B9B01B-8AD1-418D-9FCA-64CCE3B4F20A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B9B01B-8AD1-418D-9FCA-64CCE3B4F20A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
