@@ -1,0 +1,10 @@
+<button @onclick="OnClickCallback" class="px-3 py-2 bg-blue-500 rounded hover:bg-blue-600">
+    @ChildContent
+</button>
+
+@code {
+    [Parameter]
+    public EventCallback OnClickCallback { get; set; } = EventCallback.Empty;
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = default!;
+}
