@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Tweeter.Server.Models;
+using Tweeter.Shared.Models;
 
 namespace Tweeter.Server;
 

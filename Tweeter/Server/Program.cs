@@ -6,8 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Tweeter.Server;
-using Tweeter.Server.Models;
 using Tweeter.Server.Services;
+using Tweeter.Shared.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

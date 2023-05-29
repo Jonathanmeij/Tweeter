@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using Tweeter.Server.Models;
+using Tweeter.Shared.Models;
 
 namespace Tweeter.Server.Services;
 
