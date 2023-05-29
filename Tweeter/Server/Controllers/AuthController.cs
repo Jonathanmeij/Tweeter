@@ -45,7 +45,8 @@ namespace Tweeter.Server.Controllers
                 new User
                 {
                     UserName = request.Username,
-                    Email = request.Email
+                    Email = request.Email,
+                    ProfilePicture = request.ProfilePicture
                 }, request.Password);
 
             var userInDb = await _userManager.FindByEmailAsync(request.Email);
