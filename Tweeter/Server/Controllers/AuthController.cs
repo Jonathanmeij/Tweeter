@@ -48,13 +48,26 @@ namespace Tweeter.Server.Controllers
                     Email = request.Email
                 }, request.Password);
 
+            var userInDb = await _userManager.FindByEmailAsync(request.Email);
+
+            if (userInDb == null)
+            {
+                return Unauthorized("Invalid credentials");
+            }  
+
             if (result.Succeeded)
             {
                 request.Password = "";
-                return CreatedAtAction(nameof(Register), new
+
+                var accessToken = _tokenService.CreateToken(userInDb, _configuration);
+                await _contex.SaveChangesAsync();
+                
+                return Ok(new LoginResponse
                 {
-                    email = request.Email,
-                }, request);
+                    Username = userInDb.UserName,
+                    Email = userInDb.Email,
+                    Token = accessToken
+                });   
             }
 
             foreach (var error in result.Errors)

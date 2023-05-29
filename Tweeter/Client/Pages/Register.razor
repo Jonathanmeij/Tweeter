@@ -5,6 +5,7 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject ILocalStorageService LocalStorageService
 @inject NavigationManager NavigationManager
+@using System.ComponentModel.DataAnnotations
 
 <div class="">
     <div class="flex flex-col items-center justify-center h-screen gap-10">
@@ -13,20 +14,39 @@
         <div class="flex flex-col w-full max-w-xs gap-4 text">
 
             <h3 class="text-3xl font-semibold">Join Tweeter today</h3>
+
             
-            <EditForm   Model="user" OnSubmit="HandleRegister"  >
+
+
+            
+            <EditForm   Model="@registerForm" OnValidSubmit="HandleRegister"  >
+                
+                <div class="flex flex-col gap-2">
+                        @if(!string.IsNullOrEmpty(error))
+                    {
+                        <p class="p-2 text-red-500 border border-red-500 rounded bg-red-500/20">@error</p>
+                    }
+
+                    <DataAnnotationsValidator />
+                    <ValidationSummary class="p-2 text-red-500 border border-red-500 rounded bg-red-500/20" />
+                </div>
+
                 <div class="flex flex-col w-full gap-2">
                     <div class="flex flex-col w-full">
+                        <label  for="username">Username</label>
+                        <InputText class="w-full p-2 border rounded-md bg-slate-950 border-slate-700 focus:ring-blue-500 focus:ring-2 focus:outline-none " id="username" @bind-Value="registerForm.Username" />
+                    </div>
+                    <div class="flex flex-col w-full">
                         <label  for="email">Email</label>
-                        <InputText class="w-full p-2 border rounded-md bg-slate-950 border-slate-700 focus:ring-blue-500 focus:ring-2 focus:outline-none " id="email" @bind-Value="user.Email" />
+                        <InputText class="w-full p-2 border rounded-md bg-slate-950 border-slate-700 focus:ring-blue-500 focus:ring-2 focus:outline-none " id="email" @bind-Value="registerForm.Email" />
                     </div>
                     <div class="flex flex-col">
                         <label for="password">Password</label>
-                        <InputText class="p-2 border rounded-md bg-slate-950 border-slate-700 focus:ring-blue-500 focus:ring-2 focus:outline-none " type="password" id="password" @bind-Value="user.Password" />
+                        <InputText class="p-2 border rounded-md bg-slate-950 border-slate-700 focus:ring-blue-500 focus:ring-2 focus:outline-none " type="password" id="password" @bind-Value="registerForm.Password" />
                     </div>
                     <div class="flex flex-col">
                         <label for="password">Confirm password</label>
-                        <InputText class="p-2 border rounded-md bg-slate-950 border-slate-700 focus:ring-blue-500 focus:ring-2 focus:outline-none " type="password" id="password" @bind-Value="user.Password" />
+                        <InputText class="p-2 border rounded-md bg-slate-950 border-slate-700 focus:ring-blue-500 focus:ring-2 focus:outline-none " type="password" id="confirmPassword" @bind-Value="registerForm.ConfirmPassword" />
                     </div>
                 </div>
             </EditForm>
@@ -41,16 +61,54 @@
 </div>
 
 @code {
-    LoginRequest user = new LoginRequest();
+    class RegisterForm {
+        [Required]
+        [MinLength(3)]
+        public string Username { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        [MinLength(6)]
+        public string Password { get; set; }
+        [Required]
+        [MinLength(6)]
+        public string ConfirmPassword { get; set; }
+    }
+
+    RegisterForm registerForm = new RegisterForm();
+    private string error = string.Empty;
+
     
     async Task HandleRegister()
     {
+        if (registerForm.Password != registerForm.ConfirmPassword)
+        {
+            error = "Passwords do not match";
+            return;
+        }
+
+        var user = new RegisterRequest
+        {
+            Username = registerForm.Username,
+            Email = registerForm.Email,
+            Password = registerForm.Password
+        };
+
         var result = await Http.PostAsJsonAsync("/api/auth/register", user);
+
+        if(!result.IsSuccessStatusCode)
+        {
+            error = "Registration failed";
+            return;
+        }
+
         var response = await result.Content.ReadFromJsonAsync<LoginResponse>();
         var token = response.Token;
         
         await LocalStorageService.SetItemAsync("token", token);
         await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        NavigationManager.NavigateTo("/login");
+        NavigationManager.NavigateTo("/");
     }
 }
+
