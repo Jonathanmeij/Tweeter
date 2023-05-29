@@ -65,8 +65,8 @@ namespace Tweeter.Server.Controllers
                 
                 return Ok(new LoginResponse
                 {
-                    Username = userInDb.UserName,
-                    Email = userInDb.Email,
+                    Username = request.Username,
+                    Email = request.Email,
                     Token = accessToken
                 });   
             }
