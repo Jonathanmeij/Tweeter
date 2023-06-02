@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tweeter.Server;
 
@@ -10,9 +11,11 @@ using Tweeter.Server;
 namespace Tweeter.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230530163442_posts")]
+    partial class posts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -106,24 +109,6 @@ namespace Tweeter.Server.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            Content = "Hello World!",
-                            CreatedAt = new DateTime(2023, 6, 2, 19, 31, 39, 764, DateTimeKind.Local).AddTicks(9360),
-                            UpdatedAt = new DateTime(2023, 6, 2, 19, 31, 39, 764, DateTimeKind.Local).AddTicks(9400),
-                            UserId = "1"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            Content = "Kees aan de kade",
-                            CreatedAt = new DateTime(2023, 6, 2, 19, 31, 39, 764, DateTimeKind.Local).AddTicks(9410),
-                            UpdatedAt = new DateTime(2023, 6, 2, 19, 31, 39, 764, DateTimeKind.Local).AddTicks(9410),
-                            UserId = "2"
-                        });
                 });
 
             modelBuilder.Entity("Tweeter.Shared.Models.User", b =>
@@ -197,29 +182,27 @@ namespace Tweeter.Server.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e58ea8fb-26cf-46cf-8715-ab6047cb7231",
-                            Email = "johndoe@mail.com",
+                            ConcurrencyStamp = "f307dd52-e73e-4a72-8dab-c81b400bee6b",
+                            Email = "test@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            ProfilePicture = "https://fastly.picsum.photos/id/204/400/400.jpg?hmac=KqqANeQnoq20mhaCP7hblGf_FWK85L30flhC_Zu5-tE",
-                            SecurityStamp = "80e6f451-0eac-4a8f-a383-dbf104fe41a2",
+                            SecurityStamp = "16200aca-49d5-4a99-8fda-90716882ca30",
                             TwoFactorEnabled = false,
-                            UserName = "johndoe"
+                            UserName = "test"
                         },
                         new
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7e915f74-529d-41bb-ace9-b9739e0dee31",
-                            Email = "kees@mail.com",
+                            ConcurrencyStamp = "71b28292-6b34-4c79-b6fa-da5d114b3a78",
+                            Email = "johndoe@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            ProfilePicture = "https://fastly.picsum.photos/id/130/400/400.jpg?hmac=t7pjDM3Xuw1JrVA6Zohl7DYlGQWzMGSx6Mo9n-rgQQY",
-                            SecurityStamp = "983f480f-37ee-4b0d-b87f-4ba916834489",
+                            SecurityStamp = "1af6d466-3c9c-4bb3-8c0e-7ab901b2660b",
                             TwoFactorEnabled = false,
-                            UserName = "Kees"
+                            UserName = "John Doe"
                         });
                 });
 
@@ -253,17 +236,12 @@ namespace Tweeter.Server.Migrations
             modelBuilder.Entity("Tweeter.Shared.Models.Post", b =>
                 {
                     b.HasOne("Tweeter.Shared.Models.User", "User")
-                        .WithMany("Posts")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Tweeter.Shared.Models.User", b =>
-                {
-                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

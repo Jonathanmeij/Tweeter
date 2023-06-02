@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tweeter.Server;
 
@@ -10,9 +11,11 @@ using Tweeter.Server;
 namespace Tweeter.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230602172536_seed")]
+    partial class seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -112,17 +115,9 @@ namespace Tweeter.Server.Migrations
                         {
                             Id = "1",
                             Content = "Hello World!",
-                            CreatedAt = new DateTime(2023, 6, 2, 19, 31, 39, 764, DateTimeKind.Local).AddTicks(9360),
-                            UpdatedAt = new DateTime(2023, 6, 2, 19, 31, 39, 764, DateTimeKind.Local).AddTicks(9400),
+                            CreatedAt = new DateTime(2023, 6, 2, 19, 25, 36, 201, DateTimeKind.Local).AddTicks(9020),
+                            UpdatedAt = new DateTime(2023, 6, 2, 19, 25, 36, 201, DateTimeKind.Local).AddTicks(9060),
                             UserId = "1"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            Content = "Kees aan de kade",
-                            CreatedAt = new DateTime(2023, 6, 2, 19, 31, 39, 764, DateTimeKind.Local).AddTicks(9410),
-                            UpdatedAt = new DateTime(2023, 6, 2, 19, 31, 39, 764, DateTimeKind.Local).AddTicks(9410),
-                            UserId = "2"
                         });
                 });
 
@@ -197,29 +192,14 @@ namespace Tweeter.Server.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e58ea8fb-26cf-46cf-8715-ab6047cb7231",
+                            ConcurrencyStamp = "ad58899e-fde5-4d7e-bd70-c86603f09f9e",
                             Email = "johndoe@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            ProfilePicture = "https://fastly.picsum.photos/id/204/400/400.jpg?hmac=KqqANeQnoq20mhaCP7hblGf_FWK85L30flhC_Zu5-tE",
-                            SecurityStamp = "80e6f451-0eac-4a8f-a383-dbf104fe41a2",
+                            SecurityStamp = "f542f1e2-f119-4bf6-9bdc-d3cafb2195dc",
                             TwoFactorEnabled = false,
                             UserName = "johndoe"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7e915f74-529d-41bb-ace9-b9739e0dee31",
-                            Email = "kees@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PhoneNumberConfirmed = false,
-                            ProfilePicture = "https://fastly.picsum.photos/id/130/400/400.jpg?hmac=t7pjDM3Xuw1JrVA6Zohl7DYlGQWzMGSx6Mo9n-rgQQY",
-                            SecurityStamp = "983f480f-37ee-4b0d-b87f-4ba916834489",
-                            TwoFactorEnabled = false,
-                            UserName = "Kees"
                         });
                 });
 
