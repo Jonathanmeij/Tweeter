@@ -1,0 +1,28 @@
+@page "/LogoutModal"
+@if (IsOpen)
+{
+    <div class="fixed top-0 left-0 h-screen w-screen bg-black/40 flex items-center justify-center">
+        <div class="bg-slate-900 rounded ">
+            <h2 class=" font-semibold text-lg p-4">Logout</h2>
+            <div class="border-t border-slate-700"></div>
+            <div class="p-4 flex gap-2">
+                <button @onclick="CloseModal" class="bg-white hover:bg-slate-100 text-black rounded-full px-3 py-2 font-medium">Close</button>
+                <Logout></Logout>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+    
+    [Parameter]
+    public EventCallback<bool> IsOpenChanged { get; set; }
+
+    private void CloseModal()
+    {
+        IsOpen = false;
+        IsOpenChanged.InvokeAsync(IsOpen);
+    }
+}

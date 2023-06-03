@@ -1,6 +1,6 @@
 <div class="flex  gap-3 w-full">
     <div>
-        <div class="w-12 h-12 rounded-full bg-slate-600 flex-self"></div>
+        <button class="w-12 h-12 rounded-full bg-slate-600 flex-self" @onclick="OpenModal"></button>
     </div>
     
     <div class="flex flex-col gap-3 w-full">
@@ -11,13 +11,28 @@
     </div>
 </div>
 
+<LogoutModal IsOpen="@IsModalOpen" IsOpenChanged="HandleModalOpenChange"></LogoutModal>
+
+
 @code {
     private string InputValue { get; set; }
     private bool IsButtonDisabled { get; set; } = true;
+    private bool IsModalOpen { get; set; } = false;
     
     private void UpdateButtonState(ChangeEventArgs e)
     {
         InputValue = e.Value.ToString();
         IsButtonDisabled = string.IsNullOrWhiteSpace(InputValue);
+    }
+    
+    private void OpenModal()
+    {
+        Console.WriteLine(IsModalOpen);
+        IsModalOpen = true;
+    }
+    
+    private void HandleModalOpenChange(bool isOpen)
+    {
+        IsModalOpen = isOpen;
     }
 }
