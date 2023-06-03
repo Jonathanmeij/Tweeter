@@ -1,0 +1,53 @@
+@page "/user/{username}"
+@using Tweeter.Shared.Models
+@inject HttpClient Http;
+
+<div class="w-screen ">
+    <div class="w-full max-w-lg min-h-screen mx-auto border-x border-slate-800">
+        <div class="flex items-center gap-8 px-4 py-1">
+            <a href="/">back</a>
+            <div class="flex flex-col">
+                <div class="text-lg font-semibold">@Username</div>
+                <div class="text-sm text-slate-500">20 tweets</div>
+            </div>
+        </div>
+        <div class="flex flex-col w-full">
+            <div class="flex w-full h-36 bg-slate-600"></div>
+            <div class="w-24 h-24 mx-4 -my-12 border-4 rounded-full bg-slate-600 border-slate-950 overflow-hidden">
+                @if(user != null && user.ProfilePicture != null)
+                {
+                    <img src="@user.ProfilePicture" alt="avatar" class="w-full h-full object-cover">
+                }
+            </div>
+        </div>
+        <div class="px-4 py-2 mt-12">
+            <h2 class="text-lg font-semibold">@Username</h2>
+        </div>
+        <div class="w-full border-t border-slate-800"></div>
+        <div>
+            @if (postsResponse != null)
+                 {
+                    @foreach (var post in postsResponse.Posts)
+                    {
+                       <Post PostData="post"></Post>
+                    }
+                 } else
+                 {
+                    <div class="text-center text-slate-400 p-4">Loading...</div>
+                 }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Username { get; set; }
+    private UserResponse user;
+    private PostsResponse postsResponse;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await Http.GetFromJsonAsync<UserResponse>("api/user/" + Username);
+        postsResponse = await Http.GetFromJsonAsync<PostsResponse>("api/user/" + Username + "/posts");
+    }
+}

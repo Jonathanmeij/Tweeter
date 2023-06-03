@@ -1,4 +1,7 @@
 ﻿@page "/"
+@using Tweeter.Shared.Models
+@using Post = Tweeter.Client.Shared.Post
+@inject HttpClient Http
 
 <PageTitle>Index</PageTitle>
 
@@ -15,10 +18,27 @@
          </AuthorizeView>
       </div>
       <div class="border-t border-slate-800 w-full">
-         <Post></Post>
+         @if (postsResponse != null)
+         {
+            @foreach (var post in postsResponse.Posts)
+            {
+               <Post PostData="post"></Post>
+            }
+         } else
+         {
+            <div class="text-center text-slate-400 p-4">Loading...</div>
+         }
       </div>
    </div>
 </div>
 
+@code {
+   private PostsResponse postsResponse;
+   
+   protected override async Task OnInitializedAsync()
+   {
+      postsResponse = await Http.GetFromJsonAsync<PostsResponse>("api/post");
+   }
+}
 
 

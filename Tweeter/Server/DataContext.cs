@@ -18,6 +18,7 @@ public class DataContext: IdentityUserContext<User>
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
